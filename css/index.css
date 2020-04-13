@@ -13,7 +13,7 @@ body {
 }
 
 header {
-    background: #0827BF !important;
+    background: #02146f !important;
 }
 
 .navbar-brand {
@@ -23,14 +23,14 @@ header {
 }
 
 .btn-primary {
-    background: #0827BF !important;
+    background: #02146f !important;
     font-size: 1.4em;
     font-weight: 700;
 }
 
 .btn-primary:hover {
-    color: #0827BF;
-    border: 0.063em solid #0827BF;
+    color: #02146f;
+    border: 0.063em solid #02146f;
     background: #fff !important;
 }
 
