@@ -24,6 +24,8 @@ header {
 
 .btn-primary {
     background: #0827BF !important;
+    font-size: 1.4em;
+    font-weight: 700;
 }
 
 .btn-primary:hover {
