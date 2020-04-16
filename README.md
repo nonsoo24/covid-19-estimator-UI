@@ -22,4 +22,4 @@ run yarn install or npm install.
 
 ### URL
 
->Click [here] (https://covid-19-infections-estimator.netlify.com/) to view estimator
+>Click [here](https://covid-19-infections-estimator.netlify.com/) to view estimator.
