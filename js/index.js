@@ -125,14 +125,12 @@ let submitButton = document.querySelector('#getEstimate')
 
 submitButton = (e) => {
   debugger
-
   if (checkValidation()) {
     document.querySelector('.modal').style.display = 'block'
   } else {
     document.querySelector('.modal').style.display = 'none'
   }
   e.preventDefault();
-
   return true;
 };
 
