@@ -6,12 +6,6 @@ function loaded() {
 }
 
 
-//pass input data into append estimates function
-function getEstimate() {
-  const data = getUserData();
-  const impactEstimated = covid19ImpactEstimator(data);
-  appendEstimates(impactEstimated);
-}
 
 //Input data
 function getUserData() {
@@ -56,49 +50,45 @@ function appendEstimates(data) {
 }
 
 // validations
-
+const inputValue = true;
 const populationValidation = () => {
   if (document.querySelector("#population").value.length === 0) {
     errorMessagePrompt("Enter population size", "populationErrorMessage", "red", "0px");
     inputBoxError("1px solid red", "population");
-    return false;
+    return true;
 
   } else errorMessagePrompt("", "populationErrorMessage", "", "0px");
   inputBoxError("", "population");
-  return true;
 }
 
 const reportedCasesValidation = () => {
   if (document.querySelector("#reportedCases").value.length === 0) {
     errorMessagePrompt("Enter no of reported cases", "reportedCasesErrorMessage", "red", "0px");
     inputBoxError("1px solid red", "reportedCases");
-    return false;
+    return true;
 
   } else errorMessagePrompt("", "reportedCasesErrorMessage", "", "0px");
   inputBoxError("", "reportedCases");
-  return true;
 }
 
 const totalHospitalBedsValidation = () => {
   if (document.querySelector("#totalHospitalBeds").value.length === 0) {
     errorMessagePrompt("Enter no of total hospital beds", "totalHospitalBedsErrorMessage", "red", "0px");
     inputBoxError("1px solid red", "totalHospitalBeds");
-    return false;
+    return true;
 
   } else errorMessagePrompt("", "totalHospitalBedsErrorMessage", "", "0px");
   inputBoxError("", "totalHospitalBeds");
-  return true;
 }
 
 const timeToElapseValidation = () => {
   if (document.querySelector("#timeToElapse").value.length === 0) {
     errorMessagePrompt("Enter Time to Elapse", "timeToElapseErrorMessage", "red", "0px");
     inputBoxError("1px solid red", "timeToElapse");
-    return false;
+    return true;
 
   } else errorMessagePrompt("", "timeToElapseErrorMessage", "", "0px");
   inputBoxError("", "timeToElapse");
-  return true;
 }
 
 // Error message function
@@ -115,27 +105,80 @@ const inputBoxError = (borderColor, inputId) => {
 };
 
 function checkValidation() {
+  debugger
   populationValidation()
   reportedCasesValidation()
   totalHospitalBedsValidation()
   timeToElapseValidation()
-  return true;
+  return false;
 }
-let submitButton = document.querySelector('#getEstimate')
+//let submitButton = document.querySelector('#getEstimate')
 
-submitButton = (e) => {
-  debugger
-  if (checkValidation()) {
-    document.querySelector('.modal').style.display = 'block'
-  } else {
-    document.querySelector('.modal').style.display = 'none'
-  }
-  e.preventDefault();
-  return true;
-};
+// submitButton = (e) => {
+//   debugger
+//   if (checkValidation()) {
+//     document.querySelector('.modal').style.display = 'block'
+//   } else {
+//     document.querySelector('.modal').style.display = 'none'
+//   }
+//   e.preventDefault();
+//   return true;
+// };
+
+function emptyInputField(){
+  document.querySelector("#reportedCases").value = "";
+  document.querySelector("#timeToElapse").value = "";
+  document.querySelector("#totalHospitalBeds").value = "";
+  document.querySelector("#population").value = "";
+}
 
 document.querySelector("#population").addEventListener('blur', populationValidation);
 document.querySelector("#reportedCases").addEventListener('blur', reportedCasesValidation);
 document.querySelector("#totalHospitalBeds").addEventListener('blur', totalHospitalBedsValidation);
 document.querySelector("#timeToElapse").addEventListener('blur', timeToElapseValidation);
-document.querySelector('#form').addEventListener('submit', submitButton);
+//document.querySelector('#form').addEventListener('submit', submitButton);
+
+//pass input data into append estimates function
+function getEstimate(e) {
+  debugger
+  if (validate() == true) {
+  const data = getUserData();
+  const impactEstimated = covid19ImpactEstimator(data);
+  appendEstimates(impactEstimated);
+  document.querySelector('.modal').style.display = 'block';
+  emptyInputField()
+  }
+  e.preventDefault();
+}
+
+function validate() {
+  debugger
+  let reportedCases = document.querySelector("#reportedCases");
+  let timeElapse =document.querySelector("#timeToElapse")
+  let totalHospitalBeds = document.querySelector("#totalHospitalBeds")
+  let population = document.querySelector("#population");
+  if(population.value == "" ) {
+    errorMessagePrompt("Enter population size", "populationErrorMessage", "red", "0px");
+     population.focus() ;
+     return false;
+  }
+
+  if(timeElapse.value == "" ) {
+    errorMessagePrompt("Enter Time to Elapse", "timeToElapseErrorMessage", "red", "0px");
+     timeElapse.focus() ;
+     return false;
+  }
+
+  if(reportedCases.value == "" ) {
+    errorMessagePrompt("Enter no of reported cases", "reportedCasesErrorMessage", "red", "0px");
+     reportedCases.focus() ;
+     return false;
+  }
+
+  if(totalHospitalBeds.value == "") {
+    errorMessagePrompt("Enter no of total hospital beds", "totalHospitalBedsErrorMessage", "red", "0px");
+     totalHospitalBeds.focus() ;
+     return false;
+  }
+  return( true );
+}
